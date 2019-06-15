@@ -1,0 +1,10 @@
+﻿  main.cpp
+C:\Projects\C++\SpaceForce\SpaceForce\main.cpp(11): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+C:\Projects\C++\SpaceForce\SpaceForce\main.cpp(31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Projects\C++\SpaceForce\SpaceForce\main.cpp(41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Generating code
+  5 of 118 functions ( 4.2%) were compiled, the rest were copied from previous compilation.
+    1 functions were new in current compilation
+    2 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  SpaceForce.vcxproj -> C:\Projects\C++\SpaceForce\x64\Release\SpaceForce.exe
