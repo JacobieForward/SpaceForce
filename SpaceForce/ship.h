@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML\graphics.hpp>
+#include <SFML\System\Vector2.hpp>
 
 class ship {
 public:
@@ -10,7 +11,7 @@ public:
 		selectedColor = sf::Color::Red;
 		icon.setFillColor(unSelectedColor);
 
-		speed = 0.000001f;
+		speed = 0.0001f;
 		vectorToMoveTo = icon.getPosition();
 	}
 
@@ -35,15 +36,19 @@ public:
 	}
 
 	void updateMove(sf::Clock clock) {
-		// TODO: Add normalization
-		sf::Vector2f direction = vectorToMoveTo - icon.getPosition();
+		sf::Vector2f direction = (vectorToMoveTo - icon.getPosition());
 		float delta = clock.restart().asSeconds() * 60;
+
+		// Normalize the direction vector
+		float directionMagnitude = sqrt((direction.x * direction.x) + (direction.y * direction.y));
+		if (directionMagnitude <= 0.f) {
+			//icon.move(delta * speed * direction);
+			return;
+		}
+		direction = direction / directionMagnitude;
+
 		icon.move(delta * speed * direction);
 	}
-
-	/*void moveShip(float xPosition, float yPosition) {
-		icon.move(xPosition - icon.getPosition().x, yPosition - icon.getPosition().y);
-	}*/
 
 private:
 	sf::CircleShape icon;

@@ -1,10 +1,16 @@
 #pragma once
 #include "ship.h"
 #include <list>
+#include <SFML/Network.hpp>
+#include <iostream>
 
 class GameController {
 public:
 	GameController() {
+		
+	}
+
+	void updateReceiveMessage() {
 
 	}
 
@@ -37,4 +43,5 @@ public:
 private:
 	std::list<ship *> shipList;
 	sf::Clock controllerClock;
+	sf::UdpSocket socket;
 };

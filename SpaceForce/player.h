@@ -14,7 +14,9 @@ public:
 
 	void deselectShip() {
 		selectedShip->deSelectShip();
-		selectedShip = NULL;
+		if (selectedShip != NULL) {
+			selectedShip = NULL;
+		}
 	}
 
 	void setShipMovementWaypoint(float xPosition, float yPosition) {
