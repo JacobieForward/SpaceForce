@@ -4,6 +4,10 @@
 #include "GameController.h"
 #include "Constants.h"
 
+// TODO: For performance declare variables const in classes when they can be and see which functions work well as inlines
+// TODO: Come up with better naming schema for class variables vs instance variables called in constructors
+// i.e. (playerNum and playerNumber are not great side by side)
+
 int main()
 {
 	float xWindowSize = 1000;
@@ -11,10 +15,12 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(xWindowSize, yWindowSize), "SFML works!");
 	sf::RectangleShape background(sf::Vector2f(xWindowSize, yWindowSize));
 	background.setFillColor(sf::Color::Black);
-	player *mainPlayer = new player();
+	player *mainPlayer = new player(1);
+	player* enemyPlayer = new player(2);
 	GameController *controller = new GameController();
-	ship *newship = new ship(50.0f, 50.0f);
-	controller->addShip(newship);
+
+	controller->spawnShip(50.0f, 50.0f, 1);
+	controller->spawnShip(300.0f, 300.0f, 2);
 
 	while (window.isOpen())
 	{

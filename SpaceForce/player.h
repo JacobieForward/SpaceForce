@@ -3,28 +3,12 @@
 
 class player {
 public:
-	player() {
-
-	}
-
-	void selectShip(ship *newShip) {
-		selectedShip = newShip;
-		newShip->selectShip();
-	}
-
-	void deselectShip() {
-		selectedShip->deSelectShip();
-		if (selectedShip != NULL) {
-			selectedShip = NULL;
-		}
-	}
-
-	void setShipMovementWaypoint(float xPosition, float yPosition) {
-		if (selectedShip != NULL) {
-			selectedShip->setMovementWaypoint(xPosition, yPosition);
-		}
-	}
+	player(int);
+	void selectShip(ship* newShip);
+	void deselectShip();
+	void setShipMovementWaypoint(float xPosition, float yPosition);
 
 private:
 	ship *selectedShip = NULL;
+	int playerNum;
 };
