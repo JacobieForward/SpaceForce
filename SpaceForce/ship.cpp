@@ -46,3 +46,7 @@ void ship::updateMove(sf::Clock clock) {
 
 	icon.move(delta * speed * direction);
 }
+
+int ship::getPlayerNumber() {
+	return owningPlayerNumber;
+}

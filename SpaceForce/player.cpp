@@ -5,8 +5,10 @@ player::player(int playerNumber) {
 }
 
 void player::selectShip(ship* newShip) {
-	selectedShip = newShip;
-	newShip->selectShip();
+	if (playerNum == newShip->getPlayerNumber()) {
+		selectedShip = newShip;
+		newShip->selectShip();
+	}
 }
 
 void player::deselectShip() {
@@ -20,4 +22,8 @@ void player::setShipMovementWaypoint(float xPosition, float yPosition) {
 	if (selectedShip != NULL) {
 		selectedShip->setMovementWaypoint(xPosition, yPosition);
 	}
+}
+
+void selectedShipLaunchTorpedo() {
+
 }

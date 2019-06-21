@@ -12,11 +12,11 @@ int main()
 {
 	float xWindowSize = 1000;
 	float yWindowSize = 600;
-	sf::RenderWindow window(sf::VideoMode(xWindowSize, yWindowSize), "SFML works!");
+	sf::RenderWindow window(sf::VideoMode(xWindowSize, yWindowSize), "SpaceForce");
 	sf::RectangleShape background(sf::Vector2f(xWindowSize, yWindowSize));
 	background.setFillColor(sf::Color::Black);
 	player *mainPlayer = new player(1);
-	player* enemyPlayer = new player(2);
+	player *enemyPlayer = new player(2);
 	GameController *controller = new GameController();
 
 	controller->spawnShip(50.0f, 50.0f, 1);
@@ -47,6 +47,17 @@ int main()
 						mainPlayer->setShipMovementWaypoint(event.mouseButton.x, event.mouseButton.y);
 					}
 					break;
+				case sf::Event::KeyPressed:
+					if (event.key.code == sf::Keyboard::Enter) {
+						mainPlayer->selectedShipLaunchTorpedo();
+					}
+					break;
+				case sf::Event::MouseMoved:
+					if (event.type == sf::Event::MouseMoved) {
+						if () {
+
+						}
+					}
 			}
 		}
 		window.clear();

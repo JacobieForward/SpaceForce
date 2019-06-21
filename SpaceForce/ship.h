@@ -11,6 +11,7 @@ public:
 	void deSelectShip();
 	void setMovementWaypoint(float xPosition, float yPosition);
 	void updateMove(sf::Clock clock);
+	int getPlayerNumber();
 
 private:
 	sf::CircleShape icon;
