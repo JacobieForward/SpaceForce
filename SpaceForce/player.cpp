@@ -24,6 +24,16 @@ void player::setShipMovementWaypoint(float xPosition, float yPosition) {
 	}
 }
 
-void selectedShipLaunchTorpedo() {
+bool player::getSelectTorpedoDirectionMode() {
+	return player::selectTorpedoDirectionMode;
+}
 
+void player::selectTorpedoDirection() {
+	// Is the defensive coding here with checking for selectTorpedoDirectionMode being true worth it at all?
+	// Or is it simply good to code defensively out of habit?
+	if (selectedShip == NULL || selectTorpedoDirectionMode) {
+		return;
+	} else {
+		selectTorpedoDirectionMode = true;
+	}
 }

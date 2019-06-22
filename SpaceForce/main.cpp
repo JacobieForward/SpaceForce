@@ -31,6 +31,11 @@ int main()
 				case sf::Event::Closed:
 					window.close();
 					break;
+				case sf::Event::MouseMoved:
+					if (event.type == sf::Event::MouseMoved && mainPlayer->getSelectTorpedoDirectionMode()) {
+						
+						break;
+					}
 				case sf::Event::MouseButtonPressed:
 					if (event.mouseButton.button == sf::Mouse::Left) {
 						// Left Mouse is for selecting/deselecting ships on the map
@@ -49,15 +54,9 @@ int main()
 					break;
 				case sf::Event::KeyPressed:
 					if (event.key.code == sf::Keyboard::Enter) {
-						mainPlayer->selectedShipLaunchTorpedo();
+						mainPlayer->selectTorpedoDirection();
 					}
 					break;
-				case sf::Event::MouseMoved:
-					if (event.type == sf::Event::MouseMoved) {
-						if () {
-
-						}
-					}
 			}
 		}
 		window.clear();

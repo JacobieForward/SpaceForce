@@ -7,10 +7,11 @@ public:
 	void selectShip(ship* newShip);
 	void deselectShip();
 	void setShipMovementWaypoint(float xPosition, float yPosition);
-	void selectedShipLaunchTorpedo();
+	void selectTorpedoDirection();
+	bool getSelectTorpedoDirectionMode();
 
 private:
 	ship *selectedShip = NULL;
-	bool firingTorpedo = false;
+	bool selectTorpedoDirectionMode = false;
 	int playerNum;
 };

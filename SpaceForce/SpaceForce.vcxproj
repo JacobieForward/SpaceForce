@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClInclude Include="Constants.h" />
     <ClInclude Include="GameController.h" />
+    <ClInclude Include="NetworkController.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="ship.h" />
   </ItemGroup>
