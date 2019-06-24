@@ -7,6 +7,7 @@ public:
 	ship(float xSpawnPosition, float ySpawnPosition, int owningPlayerNum);
 	void display(sf::RenderWindow* win);
 	sf::FloatRect getIconBounds();
+	sf::Vector2f getShipPosition();
 	void selectShip();
 	void deSelectShip();
 	void setMovementWaypoint(float xPosition, float yPosition);

@@ -7,7 +7,7 @@ ship::ship(float xSpawnPosition, float ySpawnPosition, int owningPlayerNum) {
 	selectedColor = sf::Color::Red;
 	icon.setFillColor(unSelectedColor);
 
-	speed = 0.0001f;
+	speed = 0.00001f;
 	vectorToMoveTo = icon.getPosition();
 	owningPlayerNumber = owningPlayerNum;
 }
@@ -18,6 +18,10 @@ void ship::display(sf::RenderWindow* win) {
 
 sf::FloatRect ship::getIconBounds() {
 	return icon.getGlobalBounds();
+}
+
+sf::Vector2f ship::getShipPosition() {
+	return icon.getPosition();
 }
 
 void ship::selectShip() {
@@ -33,6 +37,8 @@ void ship::setMovementWaypoint(float xPosition, float yPosition) {
 }
 
 void ship::updateMove(sf::Clock clock) {
+	// Get the vector of the ships direction and then normalise it
+	// Possibly later safe on computation time by keeping the same calculation unless a change is made?
 	sf::Vector2f direction = (vectorToMoveTo - icon.getPosition());
 	float delta = clock.restart().asSeconds() * 60;
 

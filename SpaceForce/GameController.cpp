@@ -1,7 +1,12 @@
 #include "GameController.h"
-#include "ship.h"
 
 GameController::GameController() {
+	primaryPlayer = NULL;
+}
+
+GameController::GameController(player* userPlayer) {
+	// Declared in header as well as in Constructor, will this be a problem?
+	primaryPlayer = userPlayer;
 }
 
 void GameController::spawnShip(float xPosition, float yPosition, int playerNumber) {
@@ -23,10 +28,18 @@ ship* GameController::findShipAtPosition(float xPosition, float yPosition) {
 	return NULL;
 }
 
+void GameController::displayPlayerTorpedoAimingLine(sf::RenderWindow* window) {
+	primaryPlayer->displayAimingLine(window);
+}
+
 void GameController::displayAllShips(sf::RenderWindow* window) {
 	for (ship* eachShip : shipList) {
 		eachShip->display(window);
 	}
+}
+
+void GameController::updatePlayerTorpedoAimingLine(sf::RenderWindow& window) {
+	primaryPlayer->updateTorpedoAimingLine(sf::Vector2f(sf::Mouse::getPosition(window)));
 }
 
 void GameController::updateAllShips() {
