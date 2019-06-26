@@ -2,11 +2,13 @@
 
 GameController::GameController() {
 	primaryPlayer = NULL;
+	targetedShip = NULL;
 }
 
 GameController::GameController(player* userPlayer) {
 	// Declared in header as well as in Constructor, will this be a problem?
 	primaryPlayer = userPlayer;
+	targetedShip = NULL;
 }
 
 void GameController::spawnShip(float xPosition, float yPosition, int playerNumber) {
@@ -21,6 +23,7 @@ void GameController::addShip(ship* shipToAdd) {
 ship* GameController::findShipAtPosition(float xPosition, float yPosition) {
 	for (ship* eachShip : shipList) {
 		// If the x and y positions passed are within the bounds the a ship then that is the ship found
+		// If two ships are in the same location whichever happens to be first in the list will be selected
 		if (eachShip->getIconBounds().contains(xPosition, yPosition)) {
 			return eachShip;
 		}
@@ -39,7 +42,19 @@ void GameController::displayAllShips(sf::RenderWindow* window) {
 }
 
 void GameController::updatePlayerTorpedoAimingLine(sf::RenderWindow& window) {
-	primaryPlayer->updateTorpedoAimingLine(sf::Vector2f(sf::Mouse::getPosition(window)));
+	sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
+	primaryPlayer->updateTorpedoAimingLine(mousePosition);
+	//This functionalty is kind of buried here and not very visible from main(), not super readable but workable
+	ship* shipTarget = findShipAtPosition(mousePosition.x, mousePosition.y);
+	if (shipTarget != NULL && shipTarget != targetedShip) {
+		if (targetedShip != NULL) {
+			targetedShip->unTargetShip();
+		}
+		targetedShip = shipTarget;
+		shipTarget->targetShip();
+	} else {
+		targetedShip->unTargetShip();
+	}
 }
 
 void GameController::updateAllShips() {

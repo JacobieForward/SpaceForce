@@ -3,6 +3,7 @@
 ship::ship(float xSpawnPosition, float ySpawnPosition, int owningPlayerNum) {
 	icon.setRadius(10.0f);
 	icon.setPosition(sf::Vector2f(xSpawnPosition, ySpawnPosition));
+	icon.setOutlineColor(sf::Color::Red);
 	unSelectedColor = sf::Color::Blue;
 	selectedColor = sf::Color::Red;
 	icon.setFillColor(unSelectedColor);
@@ -42,17 +43,31 @@ void ship::updateMove(sf::Clock clock) {
 	sf::Vector2f direction = (vectorToMoveTo - icon.getPosition());
 	float delta = clock.restart().asSeconds() * 60;
 
-	// Normalize the direction vector
-	float directionMagnitude = sqrt((direction.x * direction.x) + (direction.y * direction.y));
-	if (directionMagnitude <= 0.f) {
-		//icon.move(delta * speed * direction);
-		return;
-	}
-	direction = direction / directionMagnitude;
+	direction = normalizeVector2f(direction);
 
 	icon.move(delta * speed * direction);
 }
 
+// Need a more accessable place to put this. Maybe GameController, or try to override Vector2. Will likely need normalization later
+sf::Vector2f ship::normalizeVector2f(sf::Vector2f vectorToNormalize) {
+	// Normalize the direction vector
+	float vectorToNormalizeMagnitude = sqrt((vectorToNormalize.x * vectorToNormalize.x) + (vectorToNormalize.y * vectorToNormalize.y));
+	if (vectorToNormalizeMagnitude <= 0.f) {
+		//icon.move(delta * speed * direction);
+		return vectorToNormalize;
+	}
+	vectorToNormalize = vectorToNormalize / vectorToNormalizeMagnitude;
+	return vectorToNormalize;
+}
+
 int ship::getPlayerNumber() {
 	return owningPlayerNumber;
+}
+
+void ship::targetShip() {
+	icon.setOutlineThickness(5.0f);
+}
+
+void ship::unTargetShip() {
+	icon.setOutlineThickness(0);
 }

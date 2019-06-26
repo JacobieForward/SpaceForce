@@ -1,11 +1,7 @@
-﻿  GameController.cpp
-  main.cpp
-C:\Projects\C++\SpaceForce\SpaceForce\main.cpp(18): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
-C:\Projects\C++\SpaceForce\SpaceForce\main.cpp(40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Projects\C++\SpaceForce\SpaceForce\main.cpp(50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+﻿  player.cpp
   Generating code
-  2 of 141 functions ( 1.4%) were compiled, the rest were copied from previous compilation.
-    1 functions were new in current compilation
+  2 of 144 functions ( 1.4%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   SpaceForce.vcxproj -> C:\Projects\C++\SpaceForce\x64\Release\SpaceForce.exe

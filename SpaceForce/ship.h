@@ -12,7 +12,10 @@ public:
 	void deSelectShip();
 	void setMovementWaypoint(float xPosition, float yPosition);
 	void updateMove(sf::Clock clock);
+	sf::Vector2f normalizeVector2f(sf::Vector2f vectorToNormalize);
 	int getPlayerNumber();
+	void targetShip();
+	void unTargetShip();
 
 private:
 	sf::CircleShape icon;

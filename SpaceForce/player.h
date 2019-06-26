@@ -16,7 +16,7 @@ public:
 
 private:
 	ship *selectedShip = NULL;
-	bool selectTorpedoDirectionMode = false;
+	bool selectTorpedoDirectionMode;
 	int playerNum;
 	sf::Vertex torpedoAimingLine[2];
 };

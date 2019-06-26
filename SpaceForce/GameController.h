@@ -22,6 +22,6 @@ public:
 private:
 	std::list<ship *> shipList;
 	player* primaryPlayer;
-	//sf::Vertex* torpedoAimingLinePointer[2];
 	sf::Clock controllerClock;
+	ship* targetedShip;
 };

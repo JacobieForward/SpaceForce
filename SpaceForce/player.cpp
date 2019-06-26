@@ -4,6 +4,7 @@ player::player(int playerNumber) {
 	playerNum = playerNumber;
 	torpedoAimingLine[0].color = sf::Color::White;
 	torpedoAimingLine[1].color = sf::Color::White;
+	selectTorpedoDirectionMode = NULL;
 }
 
 void player::selectShip(ship* newShip) {
@@ -14,8 +15,11 @@ void player::selectShip(ship* newShip) {
 }
 
 void player::deselectShip() {
-	selectedShip->deSelectShip();
-	if (selectedShip != NULL && !selectTorpedoDirectionMode) {
+	if (!selectTorpedoDirectionMode) {
+		selectedShip->deSelectShip();
+	}
+	// TODO: Fix access violation here after selecting and deselecting a ship
+	if (selectedShip != NULL) {
 		selectedShip = NULL;
 	}
 }
