@@ -15,11 +15,10 @@ void player::selectShip(ship* newShip) {
 }
 
 void player::deselectShip() {
-	if (!selectTorpedoDirectionMode) {
+	if (selectTorpedoDirectionMode) {
+		return;
+	} else if (selectedShip) {
 		selectedShip->deSelectShip();
-	}
-	// TODO: Fix access violation here after selecting and deselecting a ship
-	if (selectedShip != NULL) {
 		selectedShip = NULL;
 	}
 }
@@ -34,14 +33,20 @@ bool player::getSelectTorpedoDirectionMode() {
 	return player::selectTorpedoDirectionMode;
 }
 
+bool player::shipIsSelected() {
+	if (selectedShip) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 void player::cancelSelectTorpedoDirection() {
 	selectTorpedoDirectionMode = false;
 }
 
 void player::selectTorpedoDirection() {
-	// Is the defensive coding here with checking for selectTorpedoDirectionMode being true worth it at all?
-	// Or is it simply good to code defensively out of habit?
-	if (selectedShip == NULL || selectTorpedoDirectionMode) {
+	if (!selectedShip) {
 		return;
 	} else {
 		selectTorpedoDirectionMode = true;

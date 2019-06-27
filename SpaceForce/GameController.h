@@ -14,7 +14,7 @@ public:
 	void displayAllShips(sf::RenderWindow* window);
 	void displayPlayerTorpedoAimingLine(sf::RenderWindow* window);
 	void updateAllShips();
-	void updatePlayerTorpedoAimingLine(sf::RenderWindow& window);
+	void updatePlayerTorpedoAimingLine(sf::RenderWindow* window);
 
 	enum class GameState{MAINMENU, SINGLEPLAYER, MULTIPLAYER, PAUSED};
 

@@ -11,6 +11,7 @@ public:
 	void selectTorpedoDirection();
 	void cancelSelectTorpedoDirection();
 	bool getSelectTorpedoDirectionMode();
+	bool shipIsSelected();
 	void updateTorpedoAimingLine(sf::Vector2f destinationPosition);
 	void displayAimingLine(sf::RenderWindow* win);
 

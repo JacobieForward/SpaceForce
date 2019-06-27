@@ -41,19 +41,20 @@ void GameController::displayAllShips(sf::RenderWindow* window) {
 	}
 }
 
-void GameController::updatePlayerTorpedoAimingLine(sf::RenderWindow& window) {
-	sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
+void GameController::updatePlayerTorpedoAimingLine(sf::RenderWindow* window) {
+	sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(*window));
 	primaryPlayer->updateTorpedoAimingLine(mousePosition);
 	//This functionalty is kind of buried here and not very visible from main(), not super readable but workable
-	ship* shipTarget = findShipAtPosition(mousePosition.x, mousePosition.y);
-	if (shipTarget != NULL && shipTarget != targetedShip) {
-		if (targetedShip != NULL) {
+	ship* newTarget = findShipAtPosition(mousePosition.x, mousePosition.y);
+
+	if (targetedShip) {
+		if (!newTarget) {
 			targetedShip->unTargetShip();
+			targetedShip = NULL;
 		}
-		targetedShip = shipTarget;
-		shipTarget->targetShip();
-	} else {
-		targetedShip->unTargetShip();
+	} else if (newTarget) {
+		targetedShip = newTarget;
+		targetedShip->targetShip();
 	}
 }
 

@@ -52,7 +52,7 @@ int main()
 					break;
 				case sf::Event::KeyPressed:
 					if (event.key.code == sf::Keyboard::Enter) {
-						if (!mainPlayer->getSelectTorpedoDirectionMode()) {
+						if (!mainPlayer->getSelectTorpedoDirectionMode() && mainPlayer->shipIsSelected()) {
 							mainPlayer->selectTorpedoDirection();
 							std::cout << "selecting torpedo direction";
 						} else {
@@ -77,7 +77,7 @@ int main()
 		controller->displayAllShips(&window);
 
 		if (mainPlayer->getSelectTorpedoDirectionMode()) {
-			controller->updatePlayerTorpedoAimingLine(window);
+			controller->updatePlayerTorpedoAimingLine(&window);
 			controller->displayPlayerTorpedoAimingLine(&window);
 		}
 		window.display();
