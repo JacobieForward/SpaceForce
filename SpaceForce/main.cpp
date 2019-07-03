@@ -23,6 +23,7 @@ int main()
 	GameController *controller = new GameController(mainPlayer);
 
 	controller->spawnShip(50.0f, 50.0f, 1);
+	controller->spawnShip(150.0f, 50.0f, 1);
 	controller->spawnShip(300.0f, 300.0f, 2);
 
 	while (window.isOpen())
@@ -37,12 +38,19 @@ int main()
 				case sf::Event::MouseButtonPressed:
 					if (event.mouseButton.button == sf::Mouse::Left) {
 						// Left Mouse is for selecting/deselecting ships on the map
-						ship *newSelectedShip = controller->findShipAtPosition(event.mouseButton.x, event.mouseButton.y);
-						if (newSelectedShip != NULL) {
-							mainPlayer->selectShip(newSelectedShip);
-						}
-						else {
-							mainPlayer->deselectShip();
+						// When in torpedo direction selection mode it is for placing waypoints for the torpedo to follow
+						if (mainPlayer->getSelectTorpedoDirectionMode()) {
+							// Place torpedo waypoint
+							mainPlayer->placeTorpedoWaypoint(sf::Vector2f(event.mouseButton.x, event.mouseButton.y));
+						} else {
+							// We are not in torpedo selection, attempt to select/deselect ship
+							ship* newSelectedShip = controller->findShipAtPosition(event.mouseButton.x, event.mouseButton.y);
+							if (newSelectedShip != NULL) {
+								mainPlayer->selectShip(newSelectedShip);
+							}
+							else {
+								mainPlayer->deselectShip();
+							}
 						}
 					}
 					if (event.mouseButton.button == sf::Mouse::Right) {
@@ -54,16 +62,14 @@ int main()
 					if (event.key.code == sf::Keyboard::Enter) {
 						if (!mainPlayer->getSelectTorpedoDirectionMode() && mainPlayer->shipIsSelected()) {
 							mainPlayer->selectTorpedoDirection();
-							std::cout << "selecting torpedo direction";
 						} else {
 							// launch torpedo
-							// TODO: Make sure to also add this for left clicking when selecting torpedo
+
 						}
 					}
 					if (event.key.code == sf::Keyboard::Escape) {
 						if (mainPlayer->getSelectTorpedoDirectionMode()) {
 							mainPlayer->cancelSelectTorpedoDirection();
-							std::cout << "not selecting torpedo direction";
 						}
 					}
 					break;

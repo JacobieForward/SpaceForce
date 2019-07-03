@@ -1,5 +1,12 @@
 #include "ship.h"
 
+ship::ship() {
+	icon.setRadius(10.0f);
+	icon.setOutlineColor(sf::Color::Red);
+	unSelectedColor = sf::Color::Blue;
+	selectedColor = sf::Color::Red;
+}
+
 ship::ship(float xSpawnPosition, float ySpawnPosition, int owningPlayerNum) {
 	icon.setRadius(10.0f);
 	icon.setPosition(sf::Vector2f(xSpawnPosition, ySpawnPosition));

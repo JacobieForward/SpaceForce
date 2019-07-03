@@ -46,7 +46,7 @@ void GameController::updatePlayerTorpedoAimingLine(sf::RenderWindow* window) {
 	primaryPlayer->updateTorpedoAimingLine(mousePosition);
 	//This functionalty is kind of buried here and not very visible from main(), not super readable but workable
 	ship* newTarget = findShipAtPosition(mousePosition.x, mousePosition.y);
-
+	//targetedship should technically belong under the ship class, for now I'll leave it here
 	if (targetedShip) {
 		if (!newTarget) {
 			targetedShip->unTargetShip();

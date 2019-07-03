@@ -14,10 +14,12 @@ public:
 	bool shipIsSelected();
 	void updateTorpedoAimingLine(sf::Vector2f destinationPosition);
 	void displayAimingLine(sf::RenderWindow* win);
+	void placeTorpedoWaypoint(sf::Vector2f newWaypointPosition);
 
 private:
 	ship *selectedShip = NULL;
 	bool selectTorpedoDirectionMode;
 	int playerNum;
-	sf::Vertex torpedoAimingLine[2];
+	sf::Vector2f currentTorpedoWaypoint;
+	sf::VertexArray torpedoAimingLines;
 };

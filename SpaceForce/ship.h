@@ -4,6 +4,7 @@
 
 class ship {
 public:
+	ship();
 	ship(float xSpawnPosition, float ySpawnPosition, int owningPlayerNum);
 	void display(sf::RenderWindow* win);
 	sf::FloatRect getIconBounds();
