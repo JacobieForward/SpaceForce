@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "ship.h"
 #include "player.h"
+#include "Unit.h"
 #include "GameController.h"
 #include "Constants.h"
 #include <iostream>
@@ -10,6 +11,9 @@
 // i.e. (playerNum and playerNumber are not great side by side)
 // TODO: Forward declare functions in next refactor, make forward declaration part of development process going forwards
 // TODO: Overall the implementation of the torpedo aiming seems sloppy so far, might be worth at least taking a peak at later for refactor
+// TODO: During refactor replace all places where coordinates are passed seperately to instead pass a Vector2f?
+// TODO: Maybe I've corrupted the responsibilities of each class (i.e. torpedo launching contained in player when
+// maybe it should be contained in GameController, should take a look at that during refactor)
 
 int main()
 {
@@ -18,8 +22,8 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(xWindowSize, yWindowSize), "SpaceForce");
 	sf::RectangleShape background(sf::Vector2f(xWindowSize, yWindowSize));
 	background.setFillColor(sf::Color::Black);
-	player *mainPlayer = new player(1);
-	player *enemyPlayer = new player(2);
+	Player *mainPlayer = new Player(1);
+	Player *enemyPlayer = new Player(2);
 	GameController *controller = new GameController(mainPlayer);
 
 	controller->spawnShip(50.0f, 50.0f, 1);
@@ -44,27 +48,28 @@ int main()
 							mainPlayer->placeTorpedoWaypoint(sf::Vector2f(event.mouseButton.x, event.mouseButton.y));
 						} else {
 							// We are not in torpedo selection, attempt to select/deselect ship
-							ship* newSelectedShip = controller->findShipAtPosition(event.mouseButton.x, event.mouseButton.y);
+							Unit* newSelectedShip = controller->findUnitAtPosition(event.mouseButton.x, event.mouseButton.y);
 							if (newSelectedShip != NULL) {
-								mainPlayer->selectShip(newSelectedShip);
+								mainPlayer->selectUnit(newSelectedShip);
 							}
 							else {
-								mainPlayer->deselectShip();
+								mainPlayer->deselectUnit();
 							}
 						}
 					}
 					if (event.mouseButton.button == sf::Mouse::Right) {
 						// Right button is for moving ships on the map
-						mainPlayer->setShipMovementWaypoint(event.mouseButton.x, event.mouseButton.y);
+						mainPlayer->setUnitMovementWaypoint(event.mouseButton.x, event.mouseButton.y);
 					}
 					break;
 				case sf::Event::KeyPressed:
 					if (event.key.code == sf::Keyboard::Enter) {
-						if (!mainPlayer->getSelectTorpedoDirectionMode() && mainPlayer->shipIsSelected()) {
+						if (!mainPlayer->getSelectTorpedoDirectionMode() && mainPlayer->unitIsSelected()) {
 							mainPlayer->selectTorpedoDirection();
 						} else {
 							// launch torpedo
-
+							controller->spawnTorpedo(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y,
+								mainPlayer->getPlayerNumber(), mainPlayer->confirmTorpedoLaunch());
 						}
 					}
 					if (event.key.code == sf::Keyboard::Escape) {
@@ -79,8 +84,8 @@ int main()
 
 		window.draw(background);
 
-		controller->updateAllShips();
-		controller->displayAllShips(&window);
+		controller->updateAllUnits();
+		controller->displayAllUnits(&window);
 
 		if (mainPlayer->getSelectTorpedoDirectionMode()) {
 			controller->updatePlayerTorpedoAimingLine(&window);

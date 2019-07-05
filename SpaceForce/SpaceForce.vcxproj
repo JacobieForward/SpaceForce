@@ -133,15 +133,17 @@
   <ItemGroup>
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="player.cpp" />
-    <ClCompile Include="ship.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Ship.cpp" />
+    <ClCompile Include="Torpedo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constants.h" />
     <ClInclude Include="GameController.h" />
     <ClInclude Include="NetworkController.h" />
-    <ClInclude Include="player.h" />
-    <ClInclude Include="ship.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Ship.h" />
+    <ClInclude Include="Torpedo.h" />
     <ClInclude Include="Unit.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

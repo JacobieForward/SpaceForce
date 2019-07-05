@@ -1,6 +1,6 @@
 #include "player.h"
 
-player::player(int playerNumber) {
+Player::Player(int playerNumber) {
 	playerNum = playerNumber;
 	torpedoAimingLines.setPrimitiveType(sf::Lines);
 	torpedoAimingLines.resize(2);
@@ -9,65 +9,84 @@ player::player(int playerNumber) {
 	currentTorpedoWaypoint.y = -100.0f;
 }
 
-void player::selectShip(ship* newShip) {
+void Player::selectUnit(Unit* newShip) {
 	if (playerNum == newShip->getPlayerNumber()) {
-		if (selectedShip) {
-			selectedShip->deSelectShip();
+		if (selectedUnit) {
+			selectedUnit->deSelectUnit();
 		}
-		selectedShip = newShip;
-		newShip->selectShip();
+		selectedUnit = newShip;
+		newShip->selectUnit();
 	}
 }
 
-void player::deselectShip() {
+void Player::deselectUnit() {
 	if (selectTorpedoDirectionMode) {
 		return;
-	} else if (selectedShip) {
-		selectedShip->deSelectShip();
-		selectedShip = NULL;
+	}
+	else if (selectedUnit) {
+		selectedUnit->deSelectUnit();
+		selectedUnit = NULL;
 	}
 }
 
-void player::setShipMovementWaypoint(float xPosition, float yPosition) {
-	if (selectedShip != NULL) {
-		selectedShip->setMovementWaypoint(xPosition, yPosition);
+void Player::setUnitMovementWaypoint(float xPosition, float yPosition) {
+	if (selectedUnit != NULL) {
+		selectedUnit->setMovementWaypoint(xPosition, yPosition);
 	}
 }
 
-bool player::getSelectTorpedoDirectionMode() {
-	return player::selectTorpedoDirectionMode;
+bool Player::getSelectTorpedoDirectionMode() {
+	return Player::selectTorpedoDirectionMode;
 }
 
-bool player::shipIsSelected() {
-	if (selectedShip) {
+bool Player::unitIsSelected() {
+	if (selectedUnit) {
 		return true;
-	} else {
+	}
+	else {
 		return false;
 	}
 }
 
-void player::cancelSelectTorpedoDirection() {
+void Player::cancelSelectTorpedoDirection() {
 	selectTorpedoDirectionMode = false;
+	torpedoAimingLines.clear();
+	torpedoAimingLines.resize(2);
 }
 
-void player::selectTorpedoDirection() {
-	if (!selectedShip) {
+sf::VertexArray Player::confirmTorpedoLaunch() {
+	// TODO: How is this for memory management? Does this leave a floating spot in memory? Needs research.
+	// A pointer might be good assuming the values can be assigned from it before cancelSelecteTorpedoDirection
+	// clears the vertexArray that is referenced
+	sf::VertexArray tempVertex = torpedoAimingLines;
+
+	cancelSelectTorpedoDirection();
+	return tempVertex;
+}
+
+void Player::selectTorpedoDirection() {
+	if (!selectedUnit) {
 		return;
-	} else {
+	}
+	else {
 		selectTorpedoDirectionMode = true;
 	}
 }
 
-void player::updateTorpedoAimingLine(sf::Vector2f destinationPosition) {
-	torpedoAimingLines[0].position = selectedShip->getShipPosition();
+void Player::updateTorpedoAimingLine(sf::Vector2f destinationPosition) {
+	torpedoAimingLines[0].position = selectedUnit->getUnitPosition();
 	torpedoAimingLines[torpedoAimingLines.getVertexCount() - 1].position = destinationPosition;
 }
 
-void player::displayAimingLine(sf::RenderWindow* win) {
+void Player::displayAimingLine(sf::RenderWindow* win) {
 	win->draw(torpedoAimingLines);
 }
 
-void player::placeTorpedoWaypoint(sf::Vector2f newWaypointPosition) {
+void Player::placeTorpedoWaypoint(sf::Vector2f newWaypointPosition) {
 	torpedoAimingLines.append(newWaypointPosition);
 	torpedoAimingLines.append(sf::Vector2f(0.0f, 0.0f));
+}
+
+int Player::getPlayerNumber() {
+	return playerNum;
 }
