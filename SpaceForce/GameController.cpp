@@ -25,6 +25,10 @@ void GameController::addUnit(Unit* unitToAdd) {
 	unitList.push_front(unitToAdd);
 }
 
+void GameController::removeUnit(Unit* unitToRemove) {
+	unitList.remove(unitToRemove);
+}
+
 Unit* GameController::findUnitAtPosition(float xPosition, float yPosition) {
 	for (Unit* eachUnit : unitList) {
 		// If the x and y positions passed are within the bounds the a unit then that is the unit found
@@ -34,6 +38,23 @@ Unit* GameController::findUnitAtPosition(float xPosition, float yPosition) {
 		}
 	}
 	return NULL;
+}
+
+// For now all Units colliding with other units will destroy both of them
+// So ramming tactics can theoretically be employed.
+void GameController::checkForUnitCollisions() {
+	for (Unit* aUnit : unitList) {
+		Unit* unitFound = findUnitAtPosition((float)aUnit->getUnitPosition().x, (float)aUnit->getUnitPosition().y);
+		if (unitFound && aUnit->getPlayerNumber() != unitFound->getPlayerNumber()) {
+			// Destroy both units on collision
+			aUnit->~Unit();
+			unitFound->~Unit();
+			// Also remove them from the unit list, would be nice to call this in the destructor
+			// But hindsight is 20/20 I guess
+			removeUnit(aUnit);
+			removeUnit(unitFound);
+		}
+	}
 }
 
 void GameController::displayPlayerTorpedoAimingLine(sf::RenderWindow* window) {

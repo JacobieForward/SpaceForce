@@ -17,6 +17,7 @@ public:
 	void displayAimingLine(sf::RenderWindow* win);
 	void placeTorpedoWaypoint(sf::Vector2f newWaypointPosition);
 	int getPlayerNumber();
+	sf::Vector2f getSelectedUnitPosition();
 
 private:
 	Unit* selectedUnit = NULL;

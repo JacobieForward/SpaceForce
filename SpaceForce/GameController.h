@@ -12,7 +12,9 @@ public:
 	void spawnShip(float xPosition, float yPosition, int playerNumber);
 	void spawnTorpedo(float xPosition, float yPosition, int playerNumber, sf::VertexArray waypointVertex);
 	void addUnit(Unit* unitToAdd);
+	void removeUnit(Unit* unitToRemove);
 	Unit* findUnitAtPosition(float xPosition, float yPosition);
+	void checkForUnitCollisions();
 	void displayAllUnits(sf::RenderWindow* window);
 	void displayPlayerTorpedoAimingLine(sf::RenderWindow* window);
 	void updateAllUnits();
@@ -23,7 +25,7 @@ public:
 
 
 private:
-	std::list<Unit *> unitList;
+	std::list<Unit*> unitList;
 	Player* primaryPlayer;
 	sf::Clock controllerClock;
 	Unit* targetedUnit;

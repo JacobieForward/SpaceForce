@@ -90,3 +90,7 @@ void Player::placeTorpedoWaypoint(sf::Vector2f newWaypointPosition) {
 int Player::getPlayerNumber() {
 	return playerNum;
 }
+
+sf::Vector2f Player::getSelectedUnitPosition() {
+	return selectedUnit->getUnitPosition();
+}
